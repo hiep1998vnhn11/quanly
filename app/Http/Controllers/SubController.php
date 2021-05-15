@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubRequest;
+use App\Models\Category;
+use App\Models\Sub;
 use Illuminate\Http\Request;
 
 class SubController extends Controller
@@ -13,7 +16,11 @@ class SubController extends Controller
      */
     public function index()
     {
-        //
+        $subs = Sub::query()
+            ->join('categories', 'categories.id', 'subs.category_id')
+            ->select('subs.*', 'categories.name as category_name')
+            ->get();
+        return view('sub.index')->with(['subs' => $subs]);
     }
 
     /**
@@ -23,7 +30,8 @@ class SubController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('sub.create')->with(['categories' => $categories]);
     }
 
     /**
@@ -32,9 +40,10 @@ class SubController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubRequest $request)
     {
-        //
+        Sub::create($request->validated());
+        return redirect(route('sub.index'));
     }
 
     /**
@@ -43,9 +52,9 @@ class SubController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Sub $sub)
     {
-        //
+        return view('sub.show')->with(['sub' => $sub]);
     }
 
     /**
@@ -54,9 +63,11 @@ class SubController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sub $sub)
     {
-        //
+        $categories = Category::all();
+
+        return view('sub.edit')->with(['sub' => $sub, 'categories' => $categories]);
     }
 
     /**
@@ -66,9 +77,10 @@ class SubController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SubRequest $request, Sub $sub)
     {
-        //
+        $sub->update($request->validated());
+        return redirect(route('sub.index'));
     }
 
     /**
@@ -77,8 +89,8 @@ class SubController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sub $sub)
     {
-        //
+        $sub->delete();
     }
 }

@@ -43,24 +43,23 @@
                     @endif
                     <tbody>
                         @foreach ($categories as $category)
-                            <tr>
+                            <tr class="category-row" data-id="{{ $category->id }}">
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->code }}</td>
                                 <td>
                                     <a href="{{ route('category.show', ['category' => $category->id]) }}"
                                         class="btn_1 gray">
-                                        <i class="fa fa-fw fa-user"></i>
+                                        <i class="fa fa-fw fa-eye"></i>
                                         Xem
                                     </a>
                                     <a href="{{ route('category.edit', ['category' => $category->id]) }}"
                                         class="btn_1 gray">
-                                        <i class="fa fa-fw fa-user"></i>
+                                        <i class="fa fa-fw fa-pencil"></i>
                                         Sửa
                                     </a>
-                                    <a data-id="{{ route('category.edit', ['category' => $category->id]) }}"
-                                        class="btn_1 gray btn-delete-category">
-                                        <i class="fa fa-fw fa-user"></i>
+                                    <a data-id="{{ $category->id }}" class="btn_1 gray delete btn-delete-category">
+                                        <i class="fa fa-fw fa-trash"></i>
                                         Xoá
                                     </a>
                                 </td>
@@ -72,10 +71,55 @@
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
+@endsection
 
-    <script>
-        $('.btn-delete-category').on('click', function() {
-            console.log($(this).data('id'))
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.btn-delete-category').on('click', function() {
+                const id = $(this).data('id')
+                Swal.fire({
+                    title: 'Bạn chắc chưa??',
+                    text: 'Xoá vĩnh viễn hãng xe này đi và sẽ không thể đảo ngược',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ok, hãy xoá đi',
+                    cancelButtonText: 'Không, huỷ bỏ'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `/category/${id}`,
+                            method: 'DELETE',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success() {
+                                $('.category-row').each(function() {
+                                    if ($(this).data('id') == id) {
+                                        $(this).remove()
+                                        return
+                                    }
+
+                                })
+                                Swal.fire(
+                                    'Thành công',
+                                    'Đã xoá thương hiệu này!',
+                                    'success'
+                                )
+                            },
+                            error() {
+                                Swal.fire(
+                                    'Thất bại',
+                                    'Đã xoá thương hiệu này!',
+                                    'error'
+                                )
+                            }
+                        });
+                    }
+                });
+            });
         });
 
     </script>

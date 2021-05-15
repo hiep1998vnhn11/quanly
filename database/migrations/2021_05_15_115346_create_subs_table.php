@@ -16,6 +16,7 @@ class CreateSubsTable extends Migration
         Schema::create('subs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('code', 20)->nullable();
             $table->unsignedBigInteger('category_id');
             $table->timestamps();
         });

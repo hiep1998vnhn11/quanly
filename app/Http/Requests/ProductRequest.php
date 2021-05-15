@@ -30,7 +30,8 @@ class ProductRequest extends FormRequest
             'good_price' => 'required|numeric',
             'bad_price' => 'required|numeric',
             'code' => 'required|string|max:20',
-            'year' => 'required|numeric'
+            'year' => 'required|numeric',
+            'provider_id' => 'required|numeric'
         ];
     }
 }

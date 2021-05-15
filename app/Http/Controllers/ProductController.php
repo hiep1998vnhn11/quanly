@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Provider;
 use App\Models\Sub;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ProductController extends Controller
 {
@@ -15,9 +17,23 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('product.index');
+        $params = $request->all();
+        $limit = Arr::get($params, 'limit', 12);
+        $searchKey = Arr::get($params, 'search_key', null);
+
+        $products = Product::query();
+        if ($searchKey) {
+            $products->where('products.name', 'like', '%' . $searchKey . '%')
+                ->orWhere('products.code', 'like', '%' . $searchKey . '%');
+        }
+        $products = $products->join('categories', 'categories.id', 'products.category_id')
+            ->join('subs', 'subs.id', 'products.sub_id')
+            ->join('providers', 'providers.id', 'products.provider_id')
+            ->select('products.*', 'subs.name as sub_name', 'categories.name as category_name', 'providers.name as provider_name', 'providers.address as provider_address')
+            ->paginate($limit);
+        return view('product.index')->with(['products' => $products]);
     }
 
     /**
@@ -29,9 +45,11 @@ class ProductController extends Controller
     {
         $categories = Category::all();
         $subs = Sub::all();
+        $providers = Provider::all();
         return view('product.create')->with([
             'categories' => $categories,
-            'subs' => $subs
+            'subs' => $subs,
+            'providers' => $providers
         ]);
     }
 
@@ -44,7 +62,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         Product::create($request->validated());
-        return view('product.index');
+        return redirect(route('product.index'));
     }
 
     /**
@@ -53,9 +71,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        return view('product.show');
+        return view('product.show')->with(['product' => $product]);
     }
 
     /**
@@ -64,9 +82,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+        $subs = Sub::all();
+        $providers = Provider::all();
+        return view('product.edit')->with([
+            'product' => $product,
+            'categories' => $categories,
+            'subs' => $subs,
+            'providers' => $providers
+        ]);
     }
 
     /**
@@ -76,9 +102,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $product->save($request->validated());
+        return redirect(route('product.index'));
     }
 
     /**
@@ -87,8 +114,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
     }
 }

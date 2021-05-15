@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CategoryRequest;
-use App\Models\Category;
+use App\Http\Requests\ProviderRequest;
+use App\Models\Provider;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ProviderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-
-        return view('category.index')->with([
-            'categories' => $categories
-        ]);
+        $providers = Provider::all();
+        return view('provider.index')->with(['providers' => $providers]);
     }
 
     /**
@@ -29,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create');
+        return view('provider.create');
     }
 
     /**
@@ -38,10 +35,10 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(ProviderRequest $request)
     {
-        Category::create($request->validated());
-        return redirect(route('category.index'));
+        Provider::create($request->validated());
+        return redirect(route('provider.index'));
     }
 
     /**
@@ -50,10 +47,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Provider $provider)
     {
-        // $category = Category::findOrFail($id);
-        return view('category.show')->with(['category' => $category]);
+        return view('provider.show')->with(['provider' => $provider]);
     }
 
     /**
@@ -62,9 +58,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Provider $provider)
     {
-        return view('category.edit')->with(['category' => $category]);
+        return view('provider.edit')->with(['provider' => $provider]);
     }
 
     /**
@@ -74,10 +70,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(ProviderRequest $request, Provider $provider)
     {
-        $category->update($request->validated());
-        return redirect(route('category.index'));
+        $provider->save($request->validated());
+        return redirect(route('provider.index'));
     }
 
     /**
@@ -86,8 +82,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Provider $provider)
     {
-        $category->delete();
+        $provider->delete();
     }
 }

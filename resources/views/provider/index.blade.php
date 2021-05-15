@@ -6,18 +6,18 @@
             <a href="/">Dashboard</a>
         </li>
         <li class="breadcrumb-item active">
-            Toàn bộ phụ tùng
+            Toàn bộ nhà cung cấp
         </li>
     </ol>
     <!-- Example DataTables Card-->
     <div class="card mb-3">
         <div class="card-header flex-sb">
             <i class="fa fa-table"></i>
-            Toàn bộ phụ tùng
+            Toàn bộ nhà cung cấp
 
-            <a href="{{ route('product.create') }}" class="btn_1 gray delete wishlist_close">
+            <a href="{{ route('provider.create') }}" class="btn_1 gray delete wishlist_close">
                 <i class="fa fa-fw fa-times-circle-o"></i>
-                Tạo phụ tùng mới
+                Tạo nhà cung cấp mới
             </a>
         </div>
         <div class="card-body">
@@ -25,51 +25,43 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>mã</th>
-                            <th>Tên phụ tùng</th>
-                            <th>Tên loại xe</th>
-                            <th>Tên thương hiệu</th>
-                            <th>Tên Nhà cung cấp</th>
-                            <th>Giá xịn</th>
-                            <th>Giá tàu</th>
+                            <th>id</th>
+                            <th>Tên nhà cung cấp</th>
+                            <th>Địa chỉ</th>
+                            <th>Mã nhà cung cấp(Nếu có)</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
-                    @if (count($products) > 5)
+                    @if (count($providers) > 5)
                         <tfoot>
                             <tr>
-                                <th>mã</th>
-                                <th>Tên phụ tùng</th>
-                                <th>Tên loại xe</th>
-                                <th>Tên thương hiệu</th>
-                                <th>Tên Nhà cung cấp</th>
-                                <th>Giá xịn</th>
-                                <th>Giá tàu</th>
+                                <th>id</th>
+                                <th>Tên nhà cung cấp</th>
+                                <th>Địa chỉ</th>
+                                <th>Mã nhà cung cấp(Nếu có)</th>
                                 <th>Hành động</th>
                             </tr>
                         </tfoot>
                     @endif
                     <tbody>
-                        @foreach ($products as $product)
-                            <tr class="product-row" data-id="{{ $product->id }}">
-                                <td>{{ $product->code }}</td>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->sub_name }}</td>
-                                <td>{{ $product->category_name }}</td>
-                                <td>{{ $product->provider_name }}</td>
-                                <td>{{ $product->good_price }}</td>
-                                <td>{{ $product->bad_price }}</td>
+                        @foreach ($providers as $provider)
+                            <tr class="provider-row" data-id="{{ $provider->id }}">
+                                <td>{{ $provider->id }}</td>
+                                <td>{{ $provider->name }}</td>
+                                <td>{{ $provider->address }}</td>
+                                <td>{{ $provider->code }}</td>
                                 <td>
-                                    <a href="{{ route('product.show', ['product' => $product->id]) }}" class="btn_1 gray">
+                                    <a href="{{ route('provider.show', ['provider' => $provider->id]) }}"
+                                        class="btn_1 gray">
                                         <i class="fa fa-fw fa-eye"></i>
                                         Xem
                                     </a>
-                                    <a href="{{ route('product.edit', ['product' => $product->id]) }}"
+                                    <a href="{{ route('provider.edit', ['provider' => $provider->id]) }}"
                                         class="btn_1 gray">
                                         <i class="fa fa-fw fa-pencil"></i>
                                         Sửa
                                     </a>
-                                    <a data-id="{{ $product->id }}" class="btn_1 gray delete btn-delete-product">
+                                    <a data-id="{{ $provider->id }}" class="btn_1 gray delete btn-delete-provider">
                                         <i class="fa fa-fw fa-trash"></i>
                                         Xoá
                                     </a>
@@ -77,7 +69,6 @@
                             </tr>
                         @endforeach
                     </tbody>
-                    {{ $products->links() }}
                 </table>
             </div>
         </div>
@@ -88,7 +79,7 @@
 @section('scripts')
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.btn-delete-product').on('click', function() {
+            $('.btn-delete-provider').on('click', function() {
                 const id = $(this).data('id')
                 Swal.fire({
                     title: 'Bạn chắc chưa??',
@@ -102,13 +93,13 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: `/product/${id}`,
+                            url: `/provider/${id}`,
                             method: 'DELETE',
                             data: {
                                 "_token": "{{ csrf_token() }}",
                             },
                             success() {
-                                $('.product-row').each(function() {
+                                $('.provider-row').each(function() {
                                     if ($(this).data('id') == id) {
                                         $(this).remove()
                                         return

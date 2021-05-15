@@ -17,7 +17,7 @@
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
     <!-- Your custom styles -->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
@@ -38,37 +38,7 @@
                         <span class="nav-link-text">Trang chủ</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                    <a class="nav-link" href="messages.html">
-                        <i class="fa fa-fw fa-envelope-open"></i>
-                        <span class="nav-link-text">Messages</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
-                    <a class="nav-link" href="bookings.html">
-                        <i class="fa fa-fw fa-calendar-check-o"></i>
-                        <span class="nav-link-text">Bookings <span class="badge badge-pill badge-primary">6
-                                New</span></span>
-                    </a>
-                </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
-                    <a class="nav-link" href="reviews.html">
-                        <i class="fa fa-fw fa-star"></i>
-                        <span class="nav-link-text">Reviews</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
-                    <a class="nav-link" href="bookmarks.html">
-                        <i class="fa fa-fw fa-heart"></i>
-                        <span class="nav-link-text">Bookmarks</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add listing">
-                    <a class="nav-link" href="add-listing.html">
-                        <i class="fa fa-fw fa-plus-circle"></i>
-                        <span class="nav-link-text">Add listing</span>
-                    </a>
-                </li>
+
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProfile"
                         data-parent="#exampleAccordion">
@@ -115,6 +85,24 @@
                         </li>
                         <li>
                             <a href="/sub/create">Tạo mới</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProvider"
+                        data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-wrench"></i>
+                        <span class="nav-link-text">
+                            Nhà cung cấp
+                        </span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseProvider">
+                        <li>
+                            <a href="/provider">Toàn bộ</a>
+                        </li>
+                        <li>
+                            <a href="/provider/create">Tạo mới</a>
                         </li>
                     </ul>
                 </li>
@@ -289,7 +277,9 @@
     <script src="{{ asset('js/admin.js') }}"></script>
     <!-- Custom scripts for this page-->
     {{-- <script src="{{ asset('js/admin-charts.js') }}"></script> --}}
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
+    @yield('scripts')
 </body>
 
 </html>

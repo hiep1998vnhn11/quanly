@@ -11,7 +11,7 @@
         <li class="breadcrumb-item active">Sửa</li>
     </ol>
 
-    <form method="POST" action="{{ route('sub.store') }}">
+    <form method="POST" action="{{ route('provider.store') }}">
         @csrf
         <div class="box_general padding_bottom">
             <div class="header_box version_2">
@@ -21,7 +21,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Tên</label>
-                        <input id="name" value="{{ $sub->name }}" name="name" type="text" class="form-control"
+                        <input id="name" value="{{ $provider->name }}" name="name" type="text" class="form-control"
                             placeholder="Tên hãng sản xuất">
                     </div>
                     @error('name')
@@ -33,7 +33,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Mã thương hiệu(nếu có - Tối đa 20 ký tự)</label>
-                        <input id="code" name="code" value="{{ $sub->code }}" type="text" class="form-control"
+                        <input id="code" name="code" value="{{ $provider->code }}" type="text" class="form-control"
                             placeholder="Mã hãng">
                     </div>
                     @error('code')

@@ -11,7 +11,7 @@
         <li class="breadcrumb-item active">Sửa</li>
     </ol>
 
-    <form method="POST" action="{{ route('category.update', ['category' => $category->id]) }}">
+    <form method="POST" action="{{ route('sub.update', ['sub' => $sub->id]) }}">
         @csrf
         @method('put')
         <div class="box_general padding_bottom">
@@ -22,7 +22,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Tên</label>
-                        <input id="name" value="{{ $category->name }}" name="name" type="text" class="form-control"
+                        <input id="name" value="{{ $sub->name }}" name="name" type="text" class="form-control"
                             placeholder="Tên hãng sản xuất">
                     </div>
                     @error('name')
@@ -34,12 +34,27 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Mã thương hiệu(nếu có - Tối đa 20 ký tự)</label>
-                        <input id="code" name="code" value="{{ $category->code }}" type="text" class="form-control"
+                        <input id="code" name="code" value="{{ $sub->code }}" type="text" class="form-control"
                             placeholder="Mã hãng">
                     </div>
                     @error('code')
                         <div class="alert alert-danger">
                             Mã thương hiệu phải nhỏ hơn 20 ký tự
+                        </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Tên hãng(Nếu chưa có, hãy tạo mới hãng trước)</label>
+                    <select class="form-control" name="category_id">
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                        <div class="alert alert-danger">
+                            Hãy chọn thương hiệu
                         </div>
                     @enderror
                 </div>

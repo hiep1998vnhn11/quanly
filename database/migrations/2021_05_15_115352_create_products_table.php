@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->integer('year')->default(2020);
             $table->unsignedBigInteger('sub_id');
+            $table->unsignedBigInteger('category_id');
             $table->integer('good_price');
             $table->integer('bad_price');
             $table->unsignedBigInteger('provider_id');
