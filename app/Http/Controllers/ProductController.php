@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
+use App\Models\Image;
 use App\Models\Product;
 use App\Models\Provider;
 use App\Models\Sub;
@@ -32,6 +33,7 @@ class ProductController extends Controller
             ->join('subs', 'subs.id', 'products.sub_id')
             ->join('providers', 'providers.id', 'products.provider_id')
             ->select('products.*', 'subs.name as sub_name', 'categories.name as category_name', 'providers.name as provider_name', 'providers.address as provider_address')
+            ->orderBy('created_at', 'desc')
             ->paginate($limit);
         return view('product.index')->with(['products' => $products]);
     }
@@ -73,7 +75,17 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('product.show')->with(['product' => $product]);
+        $provider = Provider::findOrFail($product->provider_id);
+        $category = Category::findOrFail($product->category_id);
+        $sub = Sub::findOrFail($product->sub_id);
+        $images = Image::where('product_id', $product->id)->get();
+        return view('product.show')->with([
+            'product' => $product,
+            'provider' => $provider,
+            'category' => $category,
+            'images' => $images,
+            'sub' => $sub,
+        ]);
     }
 
     /**

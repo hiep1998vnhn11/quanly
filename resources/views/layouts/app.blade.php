@@ -18,6 +18,7 @@
     <!-- Your custom styles -->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet">
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
@@ -49,7 +50,7 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseProfile">
                         <li>
-                            <a href="/product">Toàn bộ</a>
+                            <a href="/search">Toàn bộ</a>
                         </li>
                         <li>
                             <a href="/product/create">Tạo mới</a>
@@ -202,16 +203,15 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0 mr-lg-2">
-                        <div class="input-group">
-                            <input class="form-control search-top" type="text" placeholder="Tìm kiếm phụ kiện hoặc mã">
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
+                    <div class="input-group">
+                        <input class="form-control search-top" id="search-input" type="text"
+                            placeholder="Tìm kiếm phụ kiện hoặc mã">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" id="search-btn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
@@ -280,6 +280,24 @@
     <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 
     @yield('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#search-btn').on('click', function() {
+                const searchKey = $('#search-input').val()
+                window.location.href = "{{ route('product.search') }}" +
+                    `?search_key=${searchKey}&limit=100`
+            });
+
+            $('#search-input').keypress(function(e) {
+                if (e.which == 13) {
+                    const searchKey = $(this).val()
+                    window.location.href = "{{ route('product.search') }}" +
+                        `?search_key=${searchKey}&limit=100`
+                }
+            });
+        });
+
+    </script>
 </body>
 
 </html>

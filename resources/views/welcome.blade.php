@@ -3,7 +3,7 @@
 @section('content')
 
     <ol class="breadcrumb">
-        <li class="breadcrumb-item active">Dashboard</li>
+        <li class="breadcrumb-item active">Trang chủ</li>
     </ol>
     <!-- Icon Cards-->
     <div class="row">
@@ -14,11 +14,11 @@
                         <i class="fa fa-fw fa-envelope-open"></i>
                     </div>
                     <div class="mr-5">
-                        <h5>26 New Messages!</h5>
+                        <h5>{{ $productCount }} Sản phẩm</h5>
                     </div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="messages.html">
-                    <span class="float-left">View Details</span>
+                <a class="card-footer text-white clearfix small z-1" href="{{ route('product.index') }}">
+                    <span class="float-left">Xem toàn bộ</span>
                     <span class="float-right">
                         <i class="fa fa-angle-right"></i>
                     </span>
@@ -32,11 +32,11 @@
                         <i class="fa fa-fw fa-star"></i>
                     </div>
                     <div class="mr-5">
-                        <h5>11 New Reviews!</h5>
+                        <h5>{{ $categoryCount }} Thương hiệu</h5>
                     </div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="reviews.html">
-                    <span class="float-left">View Details</span>
+                <a class="card-footer text-white clearfix small z-1" href="{{ route('category.index') }}">
+                    <span class="float-left">Xem toàn bộ</span>
                     <span class="float-right">
                         <i class="fa fa-angle-right"></i>
                     </span>
@@ -50,11 +50,11 @@
                         <i class="fa fa-fw fa-calendar-check-o"></i>
                     </div>
                     <div class="mr-5">
-                        <h5>10 New Bookings!</h5>
+                        <h5>{{ $subCount }} Loại xe</h5>
                     </div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="bookings.html">
-                    <span class="float-left">View Details</span>
+                <a class="card-footer text-white clearfix small z-1" href="{{ route('sub.index') }}">
+                    <span class="float-left">Xem toàn bộ</span>
                     <span class="float-right">
                         <i class="fa fa-angle-right"></i>
                     </span>
@@ -68,11 +68,11 @@
                         <i class="fa fa-fw fa-heart"></i>
                     </div>
                     <div class="mr-5">
-                        <h5>10 New Bookmarks!</h5>
+                        <h5>{{ $providerCount }} Nhà cung cấp</h5>
                     </div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="bookmarks.html">
-                    <span class="float-left">View Details</span>
+                <a class="card-footer text-white clearfix small z-1" href="{{ route('provider.index') }}">
+                    <span class="float-left">Xem toàn bộ</span>
                     <span class="float-right">
                         <i class="fa fa-angle-right"></i>
                     </span>

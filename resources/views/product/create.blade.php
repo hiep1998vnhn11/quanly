@@ -3,7 +3,7 @@
 @section('content')
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="/">Dashboard</a>
+            <a href="/">Trang chủ</a>
         </li>
         <li class="breadcrumb-item">
             <a href="/product">Toàn bộ sản phẩm</a>
@@ -131,9 +131,22 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Profile picture</label>
+                        <form action="/file-upload" class="dropzone"></form>
+                    </div>
+                </div>
+            </div>
             <!-- /row-->
             <p><button type="submit" class="btn_1 medium">Tạo mới</button></p>
         </form>
     </div>
     <!-- /box_general-->
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/summernote-bs4.min.js') }}"></script>
+    <script src="{{ asset('js/dropzone.min.js') }}"></script>
 @endsection
