@@ -27,3 +27,4 @@ Route::resource('provider', ProviderController::class);
 
 Route::get('search', [DashboardController::class, 'search'])->name('product.search');
 Route::post('product/{product}/upload', [DashboardController::class, 'upload'])->name('product.upload');
+Route::delete('image/{image}', [DashboardController::class, 'deleteImage']);

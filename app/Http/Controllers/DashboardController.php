@@ -10,6 +10,8 @@ use App\Models\Provider;
 use App\Models\Sub;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -41,7 +43,14 @@ class DashboardController extends Controller
         $products = $products->join('categories', 'categories.id', 'products.category_id')
             ->join('subs', 'subs.id', 'products.sub_id')
             ->join('providers', 'providers.id', 'products.provider_id')
-            ->select('products.*', 'subs.name as sub_name', 'categories.name as category_name', 'providers.name as provider_name', 'providers.address as provider_address')
+            ->join('images', function ($join) {
+                $join->on(
+                    'images.id',
+                    '=',
+                    DB::raw('(SELECT id FROM images WHERE images.product_id = products.id LIMIT 1)')
+                );
+            })
+            ->select('products.*', 'subs.name as sub_name', 'categories.name as category_name', 'providers.name as provider_name', 'providers.address as provider_address', 'images.name as image_name', 'images.folder as image_folder')
             ->paginate($limit);
         return view('product.search')->with(['products' => $products]);
     }
@@ -50,16 +59,22 @@ class DashboardController extends Controller
     {
         if ($request->hasFile('file')) {
             $fileUploaded = $request->file('file');
-            $folder = '/images/products/' . $product->id;
+            $folder = 'images/products/' . $product->id;
             $name = $fileUploaded->getClientOriginalName();
             $ext = $fileUploaded->getClientOriginalExtension();
-            $fileUploaded->storeAs('public' . $folder, $name);
+            $fileUploaded->storeAs('public/' . $folder, $name);
             Image::create([
                 'name' => $name,
                 'ext' => $ext,
-                'folder' => 'storage' . $folder,
+                'folder' => $folder,
                 'product_id' => $product->id
             ]);
         }
+    }
+
+    public function deleteImage(Image $image)
+    {
+        $image->delete();
+        Storage::delete('public/' . $image->folder . '/' . $image->name);
     }
 }

@@ -26,7 +26,10 @@
                 <ul>
                     @foreach ($products as $product)
                         <li class="product-row" data-id="{{ $product->id }}">
-                            <figure><img src="img/avatar1.jpg" alt=""></figure>
+                            <figure>
+                                <img src="{{ '/' . 'storage/' . $product->image_folder . '/' . $product->image_name }}"
+                                    alt="">
+                            </figure>
                             Tên phụ tùng:
                             <h4>{{ $product->name }} <i class="pending">Mới</i></h4>
                             <ul class="booking_details">

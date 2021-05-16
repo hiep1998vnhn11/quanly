@@ -40,23 +40,6 @@
                     </a>
                 </li>
 
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
-                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProfile"
-                        data-parent="#exampleAccordion">
-                        <i class="fa fa-fw fa-wrench"></i>
-                        <span class="nav-link-text">
-                            Loại phụ tùng
-                        </span>
-                    </a>
-                    <ul class="sidenav-second-level collapse" id="collapseProfile">
-                        <li>
-                            <a href="/search">Toàn bộ</a>
-                        </li>
-                        <li>
-                            <a href="/product/create">Tạo mới</a>
-                        </li>
-                    </ul>
-                </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"
                         data-parent="#exampleAccordion">
@@ -104,6 +87,25 @@
                         </li>
                         <li>
                             <a href="/provider/create">Tạo mới</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseProfile"
+                        data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-wrench"></i>
+                        <span class="nav-link-text">
+                            Loại phụ tùng
+                        </span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="collapseProfile">
+                        <li>
+                            <a href="/search">Toàn bộ</a>
+                        </li>
+                        <li>
+                            <a href="/product/create">Tạo mới</a>
                         </li>
                     </ul>
                 </li>
