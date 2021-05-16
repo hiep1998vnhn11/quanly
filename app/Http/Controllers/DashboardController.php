@@ -60,6 +60,7 @@ class DashboardController extends Controller
             ->join('subs', 'subs.id', 'products.sub_id')
             ->join('providers', 'providers.id', 'products.provider_id')
             ->select('products.*', 'subs.name as sub_name', 'categories.name as category_name', 'providers.name as provider_name', 'providers.address as provider_address')
+            ->orderBy('created_at', 'desc')
             ->paginate($limit);
         return view('product.search')->with(['products' => $products]);
     }

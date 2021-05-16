@@ -17,7 +17,7 @@
                         <h5>{{ $productCount }} Sản phẩm</h5>
                     </div>
                 </div>
-                <a class="card-footer text-white clearfix small z-1" href="{{ route('product.index') }}">
+                <a class="card-footer text-white clearfix small z-1" href="{{ route('product.search') }}">
                     <span class="float-left">Xem toàn bộ</span>
                     <span class="float-right">
                         <i class="fa fa-angle-right"></i>

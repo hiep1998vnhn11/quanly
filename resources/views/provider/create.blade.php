@@ -46,16 +46,16 @@
                         <input id="address" name="address" type="text" class="form-control"
                             placeholder="Địa chỉ nhà cung cấp">
                     </div>
-                    @error('code')
+                    @error('address')
                         <div class="alert alert-danger">
                             Hãy nhập địa chỉ nhà cung cấp
                         </div>
                     @enderror
                 </div>
             </div>
+            <button type="submit" class="btn_1 medium">Lưu</button>
             <!-- /row-->
         </div>
-        <button type="submit" class="btn_1 medium">Lưu</button>
     </form>
 
 @endsection

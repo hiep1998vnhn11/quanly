@@ -57,7 +57,6 @@
                 </div>
             </div>
             <button type="submit" class="btn_1 medium">Tạo mới</button>
-
             <!-- /row-->
         </div>
     </form>

@@ -11,7 +11,7 @@
         <li class="breadcrumb-item active">Tạo mới</li>
     </ol>
     <div class="box_general padding_bottom">
-        <form method="POST" action="{{ route('product.store') }}">
+        <form method="POST" action="/product">
             @csrf
             <div class="header_box version_2">
                 <h2>
@@ -131,22 +131,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Profile picture</label>
-                        <form action="/file-upload" class="dropzone"></form>
-                    </div>
-                </div>
-            </div>
             <!-- /row-->
             <p><button type="submit" class="btn_1 medium">Tạo mới</button></p>
         </form>
     </div>
     <!-- /box_general-->
-@endsection
-
-@section('scripts')
-    <script src="{{ asset('js/summernote-bs4.min.js') }}"></script>
-    <script src="{{ asset('js/dropzone.min.js') }}"></script>
 @endsection
