@@ -14,8 +14,12 @@
     <form method="POST" action="{{ route('category.store') }}">
         @csrf
         <div class="box_general padding_bottom">
-            <div class="header_box version_2">
+            <div class="header_box version_2 flex-sb">
                 <h2><i class="fa fa-file"></i>Sửa thương hiệu</h2>
+                <a href="{{ route('product.search') . '?category=' . $category->id }}" class="btn_1 gray">
+                    <i class="fa fa-fw fa-eye"></i>
+                    Xem sản phẩm
+                </a>
             </div>
             <div class="row">
                 <div class="col-md-6">

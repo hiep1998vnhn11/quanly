@@ -27,8 +27,7 @@
                     @foreach ($products as $product)
                         <li class="product-row" data-id="{{ $product->id }}">
                             <figure>
-                                <img src="{{ '/' . 'storage/' . $product->image_folder . '/' . $product->image_name }}"
-                                    alt="">
+
                             </figure>
                             Tên phụ tùng:
                             <h4>{{ $product->name }} <i class="pending">Mới</i></h4>
@@ -86,7 +85,7 @@
                         </li>
                     @endforeach
                 </ul>
-                {{ $products->links('pagination::bootstrap-4') }}
+                {{ $products->withQueryString()->links('pagination::bootstrap-4') }}
             @endif
         </div>
     </div>

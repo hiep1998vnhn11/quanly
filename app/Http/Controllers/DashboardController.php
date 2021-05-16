@@ -35,22 +35,31 @@ class DashboardController extends Controller
         $limit = Arr::get($params, 'limit', 12);
         $searchKey = Arr::get($params, 'search_key', null);
 
+        $provider = Arr::get($params, 'provider', null);
+
+        $category = Arr::get($params, 'category', null);
+        $sub = Arr::get($params, 'sub', null);
+
         $products = Product::query();
+        if ($provider) {
+            $products = $products->where('products.provider_id', '=', $provider);
+        }
+        if ($category) {
+            $products = $products->where('products.category_id', '=', $category);
+        }
+        if ($sub) {
+            $products = $products->where('products.sub_id', '=', $sub);
+        }
         if ($searchKey) {
-            $products->where('products.name', 'like', '%' . $searchKey . '%')
-                ->orWhere('products.code', 'like', '%' . $searchKey . '%');
+            $products = $products->where(function ($query) use ($searchKey) {
+                $query->where('products.name', 'like', '%' . $searchKey . '%')
+                    ->orWhere('products.code', 'like', '%' . $searchKey . '%');
+            });
         }
         $products = $products->join('categories', 'categories.id', 'products.category_id')
             ->join('subs', 'subs.id', 'products.sub_id')
             ->join('providers', 'providers.id', 'products.provider_id')
-            ->join('images', function ($join) {
-                $join->on(
-                    'images.id',
-                    '=',
-                    DB::raw('(SELECT id FROM images WHERE images.product_id = products.id LIMIT 1)')
-                );
-            })
-            ->select('products.*', 'subs.name as sub_name', 'categories.name as category_name', 'providers.name as provider_name', 'providers.address as provider_address', 'images.name as image_name', 'images.folder as image_folder')
+            ->select('products.*', 'subs.name as sub_name', 'categories.name as category_name', 'providers.name as provider_name', 'providers.address as provider_address')
             ->paginate($limit);
         return view('product.search')->with(['products' => $products]);
     }

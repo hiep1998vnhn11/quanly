@@ -53,6 +53,11 @@
                                         <i class="fa fa-fw fa-eye"></i>
                                         Xem
                                     </a>
+                                    <a href="{{ route('product.search') . '?category=' . $category->id }}"
+                                        class="btn_1 gray">
+                                        <i class="fa fa-fw fa-eye"></i>
+                                        Xem sản phẩm
+                                    </a>
                                     <a href="{{ route('category.edit', ['category' => $category->id]) }}"
                                         class="btn_1 gray">
                                         <i class="fa fa-fw fa-pencil"></i>
@@ -121,6 +126,10 @@
                 });
             });
         });
+
+        // $('.category-show-product').on('click', function(){
+        //     window.location.href=
+        // });
 
     </script>
 @endsection

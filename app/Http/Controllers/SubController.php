@@ -42,8 +42,8 @@ class SubController extends Controller
      */
     public function store(SubRequest $request)
     {
-        Sub::create($request->validated());
-        return redirect(route('sub.index'));
+        $sub = Sub::create($request->validated());
+        return redirect(route('sub.show', ['sub' => $sub]));
     }
 
     /**
@@ -80,7 +80,7 @@ class SubController extends Controller
     public function update(SubRequest $request, Sub $sub)
     {
         $sub->update($request->validated());
-        return redirect(route('sub.index'));
+        return redirect(route('sub.show', ['sub' => $sub]));
     }
 
     /**

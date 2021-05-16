@@ -55,6 +55,10 @@
                                         <i class="fa fa-fw fa-eye"></i>
                                         Xem
                                     </a>
+                                    <a href="{{ route('product.search') . '?sub=' . $sub->id }}" class="btn_1 gray">
+                                        <i class="fa fa-fw fa-eye"></i>
+                                        Xem sản phẩm
+                                    </a>
                                     <a href="{{ route('sub.edit', ['sub' => $sub->id]) }}" class="btn_1 gray">
                                         <i class="fa fa-fw fa-pencil"></i>
                                         Sửa

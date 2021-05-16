@@ -283,18 +283,47 @@
 
     @yield('scripts')
     <script type="text/javascript">
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+        console.log(getParameterByName('search_key'))
         $(document).ready(function() {
             $('#search-btn').on('click', function() {
                 const searchKey = $('#search-input').val()
-                window.location.href = "{{ route('product.search') }}" +
-                    `?search_key=${searchKey}&limit=100`
+                const limit = getParameterByName('limit')
+                const page = getParameterByName('page')
+                const category = getParameterByName('category')
+                const sub = getParameterByName('sub')
+                const provider = getParameterByName('provider')
+
+                let href = "{{ route('product.search') }}" + `?search_key=${searchKey}`
+                if (category) href += `&category=${category}`
+                if (sub) href += `&sub=${sub}`
+                if (provider) href += `$provider=${provider}`
+                if (limit) href += `$provider=${limit}`
+                window.location.href = href
             });
 
             $('#search-input').keypress(function(e) {
                 if (e.which == 13) {
                     const searchKey = $(this).val()
-                    window.location.href = "{{ route('product.search') }}" +
-                        `?search_key=${searchKey}&limit=100`
+                    const limit = getParameterByName('limit')
+                    const page = getParameterByName('page')
+                    const category = getParameterByName('category')
+                    const sub = getParameterByName('sub')
+                    const provider = getParameterByName('provider')
+
+                    let href = "{{ route('product.search') }}" + `?search_key=${searchKey}`
+                    if (category) href += `&category=${category}`
+                    if (sub) href += `&sub=${sub}`
+                    if (provider) href += `&provider=${provider}`
+                    if (limit) href += `&provider=${limit}`
+                    window.location.href = href
                 }
             });
         });

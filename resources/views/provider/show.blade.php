@@ -6,7 +6,7 @@
             <a href="/">Trang chủ</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="/product">Toàn bộ thương hiệu</a>
+            <a href="/provider">Toàn bộ nhà cung cấp</a>
         </li>
         <li class="breadcrumb-item active">Sửa</li>
     </ol>
@@ -15,7 +15,11 @@
         @csrf
         <div class="box_general padding_bottom">
             <div class="header_box version_2">
-                <h2><i class="fa fa-file"></i>Sửa thương hiệu</h2>
+                <h2><i class="fa fa-file"></i>Sửa nhà cung cấp</h2>
+                <a href="{{ route('product.search') . '?provider=' . $provider->id }}" class="btn_1 gray">
+                    <i class="fa fa-fw fa-eye"></i>
+                    Xem sản phẩm
+                </a>
             </div>
             <div class="row">
                 <div class="col-md-6">

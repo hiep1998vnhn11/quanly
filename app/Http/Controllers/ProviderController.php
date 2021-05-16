@@ -37,8 +37,8 @@ class ProviderController extends Controller
      */
     public function store(ProviderRequest $request)
     {
-        Provider::create($request->validated());
-        return redirect(route('provider.index'));
+        $provider = Provider::create($request->validated());
+        return redirect(route('provider.show', ['provider' => $provider]));
     }
 
     /**
@@ -73,7 +73,7 @@ class ProviderController extends Controller
     public function update(ProviderRequest $request, Provider $provider)
     {
         $provider->save($request->validated());
-        return redirect(route('provider.index'));
+        return redirect(route('provider.show', ['provider' => $provider]));
     }
 
     /**

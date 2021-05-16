@@ -18,9 +18,7 @@
             <ul>
                 <li>
                     <figure>
-                        @if (isset($images[0]))
-                            <img src="{{ '/' . 'storage/' . $images[0]->folder . '/' . $images[0]->name }}" alt="">
-                        @endif
+
                     </figure>
                     <h4>Thông tin chi tiết</h4>
                     <ul class="booking_details">
@@ -65,19 +63,6 @@
         </div>
 
         <div class="row">
-            @foreach ($images as $image)
-                <div class="col-md-3 text-center image-row" data-id="{{ $image->id }}">
-                    <a data-id="{{ $image->id }}" class="btn_1 gray delete btn-delete-image mb-3">
-                        <i class="fa fa-fw fa-trash"></i>
-                        Xoá ảnh này (bên dưới)
-                    </a>
-                    {{ $image->name }}
-                    <img src="{{ '/' . 'storage/' . $image->folder . '/' . $image->name }}" class="image-product">
-                </div>
-            @endforeach
-        </div>
-
-        <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
                     <label>Thêm ảnh vào sản phẩm (Lưu ý là chỉ thêm vào ảnh, và các ảnh trong cùng 1 phụ tùng tên phải khác
@@ -89,6 +74,20 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            @foreach ($images as $image)
+                <div class="col-md-4 text-center image-row" data-id="{{ $image->id }}">
+                    <a data-id="{{ $image->id }}" class="btn_1 gray delete btn-delete-image mb-3">
+                        <i class="fa fa-fw fa-trash"></i>
+                        Xoá ảnh này (bên dưới)
+                    </a>
+                    {{ $image->name }}
+                    <img src="{{ '/' . 'storage/' . $image->folder . '/' . $image->name }}" class="image-product">
+                </div>
+            @endforeach
+        </div>
+
     </div>
 @endsection
 

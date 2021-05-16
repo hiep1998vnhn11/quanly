@@ -63,8 +63,8 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create($request->validated());
-        return redirect(route('product.index'));
+        $product = Product::create($request->validated());
+        return redirect(route('product.show', ['product' => $product]));
     }
 
     /**
@@ -117,7 +117,7 @@ class ProductController extends Controller
     public function update(ProductRequest $request, Product $product)
     {
         $product->save($request->validated());
-        return redirect(route('product.index'));
+        return redirect(route('product.show', ['product' => $product]));
     }
 
     /**

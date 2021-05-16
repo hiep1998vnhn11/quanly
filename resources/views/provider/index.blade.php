@@ -56,6 +56,11 @@
                                         <i class="fa fa-fw fa-eye"></i>
                                         Xem
                                     </a>
+                                    <a href="{{ route('product.search') . '?provider=' . $provider->id }}"
+                                        class="btn_1 gray">
+                                        <i class="fa fa-fw fa-eye"></i>
+                                        Xem sản phẩm
+                                    </a>
                                     <a href="{{ route('provider.edit', ['provider' => $provider->id]) }}"
                                         class="btn_1 gray">
                                         <i class="fa fa-fw fa-pencil"></i>

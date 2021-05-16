@@ -40,8 +40,8 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::create($request->validated());
-        return redirect(route('category.index'));
+        $category = Category::create($request->validated());
+        return redirect(route('category.show', ['category' => $category]));
     }
 
     /**
@@ -77,7 +77,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->validated());
-        return redirect(route('category.index'));
+        return redirect(route('category.show', ['category' => $category]));
     }
 
     /**
