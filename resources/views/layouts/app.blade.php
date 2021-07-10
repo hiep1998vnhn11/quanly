@@ -40,6 +40,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                    <a class="nav-link" href="/import">
+                        <i class="fa fa-fw fa-dashboard"></i>
+                        <span class="nav-link-text">Tìm kiếm exel</span>
+                    </a>
+                </li>
+
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents"
                         data-parent="#exampleAccordion">
